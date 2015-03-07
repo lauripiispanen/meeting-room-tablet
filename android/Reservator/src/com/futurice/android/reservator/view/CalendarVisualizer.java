@@ -308,6 +308,7 @@ public class CalendarVisualizer extends HorizontalScrollView implements Reservat
 	protected void onDraw(Canvas c) {
 		long start = System.currentTimeMillis();
 		int headerHeight = Math.min(getHeight(), getWidth()) / 12;
+		dayWidth = (getWidth() - timeLabelWidth - 1) / daysToShow;
 		timeLabelRect = new RectF(0, headerHeight, timeLabelWidth, getHeight());
 		calendarAreaRect = new RectF(timeLabelWidth, headerHeight, getWidth(), getHeight());
 		headerRect = new RectF(timeLabelWidth, 0, getWidth(), headerHeight);
