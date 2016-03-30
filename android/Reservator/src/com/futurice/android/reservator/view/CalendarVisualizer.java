@@ -159,7 +159,7 @@ public class CalendarVisualizer extends HorizontalScrollView implements Reservat
 		c.save();
 		c.clipRect(area.left + getScrollX(), area.top,  area.right + getScrollX(), area.bottom);
 		c.translate(area.left, area.top);
-		float textSize = area.height() / 3;
+        float textSize = determineDayHeaderTextSize(dayLabels, new Paint(textPaint), dayWidth, area.height() / 3);
 		textPaint.setTextSize(textSize);
 		float dayLabelY = area.height() - textSize / 2;
 		float weekLabelY = dayLabelY - textSize;
@@ -172,6 +172,20 @@ public class CalendarVisualizer extends HorizontalScrollView implements Reservat
 		}
 		c.restore();
 	}
+    private float determineDayHeaderTextSize(String[] dayLabels, Paint textPaint, int dayWidth, float maxSize) {
+        float size = maxSize;
+        float longest;
+        do {
+            longest = 0;
+            for (String label : dayLabels) {
+                float width = textPaint.measureText(label);
+                if (width > longest) {
+                    longest = width;
+                }
+            }
+        } while (longest > dayWidth);
+        return maxSize;
+    }
 	private void drawCalendarReservations(Canvas c, RectF area){
 		c.save();
 		c.clipRect(area.left + getScrollX(), area.top, area.right + getScrollX(), area.bottom);
